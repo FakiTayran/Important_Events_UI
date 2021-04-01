@@ -1,0 +1,12 @@
+body {
+	margin: 0;
+	font-family: Roboto, -apple-system, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+	background-color: #537895;
+    background-image: linear-gradient(315deg, #537895 0%, #09203f 74%);
+}
+
+#paginationDiv{
+	position: sticky;
+  	bottom: 0;
+	opacity: .8;
+}

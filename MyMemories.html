@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/loading.css">
+    <link rel="stylesheet" href="/css/pagination.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#"><i class="fas fa-history"></i></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="" id="home">Casa <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="" id="myFavoriteMemorylink">I Miei Ricordi
+                    </a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" id="searchEvent">
+                <div class="d-flex">
+                    <li id="loginName" class="mr-2" style="list-style-type: none;"></li>
+                    <li id="btnLogout" class="mr-5" style="list-style-type: none;"><a href="#"><i class="fas fa-sign-out-alt"></i></a></li>
+                </div>                <input class="form-control mr-sm-2" type="search" placeholder="&#128269" aria-label="Search"
+                    id="searchBox">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search">Ricerca</button>
+            </form>
+            <li style="list-style-type:none " class="ml-2"><a href="#tr" data-reload-memory><img src="/img/turkey.png" alt="Türkçe"></a></li>
+            <li style="list-style-type:none " class="ml-2"><a href="#it" data-reload-memory><img src="/img/italy.png" alt="Italian"></a></li>
+        </div>
+    </nav>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="m-2">
+                <h4 class="text-white" id="filters">Filtri</h4>
+                <label for="type" class="text-white" id="type">Genere</label>
+                <select class="form-control" aria-label="Default select example" name="type" id="typeOfEvent">
+                    <option id="all">Tutte</option>
+                </select>
+                <label for="dayAndMonth" class="text-white mt-1" id="dayOfMonth">Giorno Del Mese</label>
+                <div class="d-flex" name="dayAndMonth">
+                    <select name="date" id="dayFilter" class="form-control mt-1">
+                        <option id="day">Giorno</option>
+                    </select>
+                    <select class="form-control ml-1 mt-1" aria-label="Default select example" name="time"
+                        id="monthFilter">
+                        <option id="month">Mese</option>
+                    </select>
+                </div>
+                <div class="text-center mt-3" id="warningDiv"></div>
+                <div class="text-center mt-3" id="countDiv">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <table class="table table-striped text-white" id="myTable">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th id="colDate">Data</th>
+                        <th id="colEvent">Genere</th>
+                        <th id="colDescription">Descrizione</th>
+                        <th id="colDelete">Modificare</th>
+                        <th id="colEdit">Elimina</th>
+                    </tr>
+                </thead>
+                <tbody id="myMemories">
+
+                </tbody>
+            </table>
+            <div class="row" id="paginationDiv">
+                <div class="col-md-5">
+                    <button class="col-lg-12 col-xs-12 bgColor" id="PreValue">Pre</button>
+                </div>
+                <div class="col-md-2"></div>
+                <div class="col-md-5">
+                    <button class="col-lg-12 col-xs-12 bgColor" id="nextValue">LL Prossim</button>
+                </div>
+            </div>
+        </div>
+        <!-- EDIT EVENT MODAL -->
+        <form id="frmEditEvent" method="post">
+            <div class="modal fade" id="myEditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel"></h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <div>
+                                <select class="form-control" aria-label="Default select example" name="category"
+                                    id="typeOfEventEdit">
+                                    <option name="categoryoption" id="typeEventEdit">Tutte</option>
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <select name="date" id="dayFilterEdit" class="form-control mt-1">
+                                        <option name="dayOption" id="editDay">Giorno</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="form-control ml-1 mt-1" aria-label="Default select example"
+                                        name="time" id="monthFilterEdit">
+                                        <option id="editMonth">Mese</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="description"></label>
+                                <textarea name="description" id="description" cols="30" rows="10"
+                                    class="form-control"></textarea>
+                            </div>
+                            <div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+<script src="/js/jquerymin.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="/js/main.js"> </script>
+<script src="/js/languageMyMemory.js"></script>
+
+
+</html>

@@ -1,0 +1,9 @@
+.bgColor{
+    background-color: #137dbd;
+    color: #ffffff;
+} 
+#PreValue,#nextValue{
+	border: none;
+    height: 25px;
+    border-radius: 5px;
+}
